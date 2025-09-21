@@ -1,7 +1,15 @@
+/*
+ * @Author: Paner luh1@xiaopeng.com
+ * @Date: 2025-09-18 10:20:11
+ * @LastEditors: Paner luh1@xiaopeng.com
+ * @LastEditTime: 2025-09-18 10:41:12
+ * @FilePath: \MOO-music\src\utils\request.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import simpleAxios from './simpleAxios'
 import toast from './toast'
 
-export const BASE_URL = 'https://moomusicapi.onrender.com'
+export const BASE_URL = 'https://kele.160622.xyz:14000'
 export const MOO_API = BASE_URL
 
 const request = simpleAxios.create({

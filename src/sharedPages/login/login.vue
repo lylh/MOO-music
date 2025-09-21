@@ -11,26 +11,80 @@
   >
     <!-- #endif -->
     <view class="z-50 mid">
-      <JImage
-        :src="qrimg"
-        width="400rpx"
-        height="400rpx"
-      />
+      <!-- 二维码登录区域 -->
+      <view v-if="!showManualLogin">
+        <JImage
+          :src="qrimg"
+          width="400rpx"
+          height="400rpx"
+        />
 
-      <button
-        class="font-bold bg-yellow-1 text-black-1 rounded-full my-4"
-        :loading="isLoading"
-        @tap.stop="toNetease"
-      >
-        {{ qrimg ? '打开网易云音乐' : '获取二维码中...' }}
-      </button>
+        <button
+          class="font-bold bg-yellow-1 text-black-1 rounded-full my-4"
+          :loading="isLoading"
+          @tap.stop="toNetease"
+        >
+          {{ qrimg ? '打开网易云音乐' : '获取二维码中...' }}
+        </button>
 
-      <uni-notice-bar
-        v-if="qrimg"
-        class="rounded-md overflow-hidden"
-        show-icon
-        text="请手动截图保存后,点击按钮跳转网易云音乐进行扫码（**小程序不支持跳转**）"
-      />
+        <uni-notice-bar
+          v-if="qrimg"
+          class="rounded-md overflow-hidden"
+          show-icon
+          text="请手动截图保存后,点击按钮跳转网易云音乐进行扫码（**小程序不支持跳转**）"
+        />
+
+        <!-- 切换到手动登录 -->
+        <button
+          class="font-bold bg-gray-500 text-white rounded-full mt-4 text-sm"
+          @tap="showManualLogin = true"
+        >
+          手动输入Cookie登录
+        </button>
+      </view>
+
+      <!-- 手动Cookie登录区域 -->
+      <view v-else class="w-full px-8">
+        <view class="text-center mb-6">
+          <text class="text-lg font-bold">🍪 手动Cookie登录</text>
+        </view>
+
+        <textarea
+          v-model="manualCookie"
+          class="w-full h-32 p-4 border border-gray-300 rounded-lg text-sm"
+          placeholder="请粘贴从浏览器获取的完整Cookie..."
+          :maxlength="2000"
+        />
+
+        <view class="flex gap-2 mt-4">
+          <button
+            class="flex-1 font-bold bg-green-500 text-white rounded-full"
+            :loading="isManualLoading"
+            @tap="handleManualLogin"
+          >
+            确认登录
+          </button>
+          <button
+            class="flex-1 font-bold bg-gray-500 text-white rounded-full"
+            @tap="showManualLogin = false"
+          >
+            返回扫码
+          </button>
+        </view>
+
+        <button
+          class="w-full font-bold bg-blue-500 text-white rounded-full mt-2 text-sm"
+          @tap="showCookieHelp"
+        >
+          如何获取Cookie？
+        </button>
+
+        <uni-notice-bar
+          class="rounded-md overflow-hidden mt-4"
+          show-icon
+          text="Cookie包含敏感信息，请确保来源安全可靠"
+        />
+      </view>
     </view>
   <!-- #ifdef H5 -->
   </H5BackTransition>
@@ -39,15 +93,58 @@
 
 <script setup lang="ts">
 import { createQRKey, createQRImg, checkQRStatus } from '@/api/login'
+import { setManualCookie, getCookieInstructions } from '@/utils/cookieHelper'
 import toast from '@/utils/toast'
 
 const qrimg = ref('')
 const isLoading = ref(false)
 
+// 手动Cookie登录相关
+const showManualLogin = ref(false)
+const manualCookie = ref('')
+const isManualLoading = ref(false)
+
 let timer: number | undefined
 onBeforeUnmount(() => { timer && clearInterval(timer) })
 
 login()
+
+// 手动Cookie登录处理
+async function handleManualLogin() {
+  if (!manualCookie.value.trim()) {
+    toast.fail('请输入Cookie')
+    return
+  }
+
+  isManualLoading.value = true
+  
+  try {
+    const success = await setManualCookie(manualCookie.value.trim())
+    if (success) {
+      // 登录成功，清理定时器
+      if (timer) {
+        clearInterval(timer)
+        timer = undefined
+      }
+    }
+  } catch (error) {
+    console.error('手动登录失败:', error)
+  } finally {
+    isManualLoading.value = false
+  }
+}
+
+// 显示Cookie获取帮助
+function showCookieHelp() {
+  const instructions = getCookieInstructions()
+  
+  uni.showModal({
+    title: '获取Cookie指南',
+    content: instructions,
+    showCancel: false,
+    confirmText: '我知道了'
+  })
+}
 
 async function login() {
   isLoading.value = true
