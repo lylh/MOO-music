@@ -89,9 +89,14 @@ async function toBanner({ targetType, targetId, song }: Banner) {
 }
 
 async function fetchBanner() {
-  const { banners } = await getBanner()
-  bannerList.value = banners.filter(v => v.targetType !== 3000) // * 3000是外链的数字专辑
+  console.log('🎯 Carousel fetchBanner 开始执行')
+  try {
+    const { banners } = await getBanner()
+    bannerList.value = banners.filter(v => v.targetType !== 3000) // * 3000是外链的数字专辑
 
-  console.log('🚀 ~ file: Carousel.vue:40 ~ fetchBanner ~ banners:', banners)
+    console.log('🚀 ~ file: Carousel.vue:40 ~ fetchBanner ~ banners:', banners)
+  } catch (error) {
+    console.error('❌ Carousel fetchBanner 失败:', error)
+  }
 }
 </script>

@@ -1,3 +1,11 @@
+/*
+ * @Author: paner 328538688@qq.com
+ * @Date: 2025-09-21 14:44:06
+ * @LastEditors: paner 328538688@qq.com
+ * @LastEditTime: 2025-09-21 15:17:03
+ * @FilePath: \MOO-music\vite.config.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { defineConfig } from 'vite'
 import uni from '@dcloudio/vite-plugin-uni'
 import { UnifiedViteWeappTailwindcssPlugin as uvwt } from 'weapp-tailwindcss-webpack-plugin/vite'
@@ -51,5 +59,15 @@ export default defineConfig({
   },
   esbuild: {
     drop: isProd ? ['console', 'debugger'] : []
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://kele.160622.xyz:14000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: true
+      }
+    }
   }
 })

@@ -24,6 +24,11 @@ export default function useCache<
       }
     },
     fail(err) {
+      // 忽略存储不存在的错误，这是正常情况
+      if (err.errMsg && err.errMsg.includes('storage 没有找到相同key的存储记录')) {
+        // 静默处理，不输出错误日志
+        return
+      }
       console.error(err)
     },
     complete() {

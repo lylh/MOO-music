@@ -25,7 +25,7 @@ export function checkQRStatus(key: string) {
   return request.get<
     any,
     {code: 800 | 801 | 802 | 803, cookie: string, message: string}
-  >(`${MOO_API}/login/qr/check?key=${key}&timestamp=${Date.now()}`)
+  >(`/login/qr/check?key=${key}&timestamp=${Date.now()}`)
 }
 
 export function getLoginStatus(cookie: string) {
@@ -33,5 +33,5 @@ export function getLoginStatus(cookie: string) {
 }
 
 export function logout() {
-  return request.get<any, {code: number}>(`${MOO_API}/logout`)
+  return request.get<any, {code: number}>(`/logout`)
 }

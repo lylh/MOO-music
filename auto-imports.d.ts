@@ -77,7 +77,6 @@ declare global {
   const setActivePinia: typeof import('pinia')['setActivePinia']
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
   const setupAudio: typeof import('./src/store/audio')['setupAudio']
-  const setupCache: typeof import('./src/store/cache')['setupCache']
   const setupLogin: typeof import('./src/store/user')['setupLogin']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']

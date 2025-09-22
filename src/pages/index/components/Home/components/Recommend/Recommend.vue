@@ -101,11 +101,16 @@ function freshRecommend() {
 }
 
 async function fetchRecommend(isLogin: boolean) {
-  const data = isLogin ? await getPersonalRecommend() : await getRecommend(20)
-  console.log('🚀 ~ file: Recommend.vue:77 ~ fetchRecommend ~ data:', data)
+  console.log('🎯 Recommend fetchRecommend 开始执行, isLogin:', isLogin)
+  try {
+    const data = isLogin ? await getPersonalRecommend() : await getRecommend(20)
+    console.log('🚀 ~ file: Recommend.vue:77 ~ fetchRecommend ~ data:', data)
 
-  cacheList = data.result || data.recommend!
-  freshRecommend()
+    cacheList = data.result || data.recommend!
+    freshRecommend()
+  } catch (error) {
+    console.error('❌ Recommend fetchRecommend 失败:', error)
+  }
 }
 
 async function fetchRecommendSongs() {

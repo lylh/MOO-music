@@ -1,15 +1,26 @@
 /*
  * @Author: Paner luh1@xiaopeng.com
  * @Date: 2025-09-18 10:20:11
- * @LastEditors: Paner luh1@xiaopeng.com
- * @LastEditTime: 2025-09-18 10:41:12
+ * @LastEditors: paner 328538688@qq.com
+ * @LastEditTime: 2025-09-21 17:27:53
  * @FilePath: \MOO-music\src\utils\request.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import simpleAxios from './simpleAxios'
 import toast from './toast'
 
-export const BASE_URL = 'https://kele.160622.xyz:14000'
+// #ifdef H5
+const BASE_URL = '/api'
+// #endif
+
+// #ifdef APP-PLUS
+const BASE_URL = 'https://kele.160622.xyz:14000'
+// #endif
+
+// #ifndef H5 || APP-PLUS
+const BASE_URL = 'https://kele.160622.xyz:14000'
+// #endif
+
 export const MOO_API = BASE_URL
 
 const request = simpleAxios.create({
@@ -17,18 +28,34 @@ const request = simpleAxios.create({
   withCredentials: true
 })
 
-/* request.interceptors.request.use(
+// 添加调试日志
+console.log('🔧 Request config:', {
+  baseURL: BASE_URL,
+  environment: process.env.NODE_ENV,
+  platform: uni.getSystemInfoSync().platform
+})
+
+request.interceptors.request.use(
   (config) => {
-    // console.log('🚀 ~ file: request.ts:11 ~ config:', config)
+    console.log('🚀 Request interceptor:', config)
     return config
   }, (err) => {
+    console.error('❌ Request error:', err)
+    // 显示Promise异常提示
+    if (typeof uni !== 'undefined') {
+      uni.showToast({
+        title: '❌ 请求异常',
+        icon: 'none',
+        duration: 3000
+      })
+    }
     toast.fail()
     return Promise.reject(err)
-  }) */
+  })
 
 request.interceptors.response.use(
   (response) => {
-    // console.log('🚀 ~ file: request.ts:20 ~ response:', response)
+    console.log('✅ Response interceptor:', response)
     const { data } = response
     const code = data.code || data.data?.code
 
@@ -44,7 +71,15 @@ request.interceptors.response.use(
   }, (err) => {
     if (err.errMsg === 'request:fail abort') return Promise.reject(err)
 
-    console.error(err)
+    console.error('❌ Response error:', err)
+    // 显示Promise异常提示
+    if (typeof uni !== 'undefined') {
+      uni.showToast({
+        title: '❌ 响应异常',
+        icon: 'none',
+        duration: 3000
+      })
+    }
     // toast.fail()
     return Promise.reject(err)
   })

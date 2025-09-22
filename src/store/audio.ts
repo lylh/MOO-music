@@ -223,8 +223,16 @@ export function setupAudio() {
   })
 
   audio.onError((err) => {
+    console.error('❌ Audio error:', err)
+    // 显示Promise异常提示
+    if (typeof uni !== 'undefined') {
+      uni.showToast({
+        title: '❌ 音频异常',
+        icon: 'none',
+        duration: 3000
+      })
+    }
     toast.fail('链接无效')
-    console.error(err)
 
     audioStore.isLoading = false
     audioStore.isPlay = false

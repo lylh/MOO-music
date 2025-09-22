@@ -1,3 +1,11 @@
+<!--
+ * @Author: paner 328538688@qq.com
+ * @Date: 2025-09-21 14:44:06
+ * @LastEditors: paner 328538688@qq.com
+ * @LastEditTime: 2025-09-21 15:22:18
+ * @FilePath: \MOO-music\src\pages\index\index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <view class="h-full bg-black-2 flex flex-col justify-stretch overflow-hidden">
     <Navbar :class="{'invisible': isMV}" />
@@ -56,6 +64,11 @@ currentView = 1
 pages.unshift('mv')
 
 const isMV = computed(() => currentPage.value === 'mv')
+// #endif
+
+// #ifdef APP-PLUS
+// 在 APP-PLUS 环境下定义 isMV 为 false，因为 MV 功能不可用
+const isMV = computed(() => false)
 // #endif
 
 </script>
