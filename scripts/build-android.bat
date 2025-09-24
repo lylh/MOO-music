@@ -48,6 +48,14 @@ xcopy "dist\build\h5\*" "android-temp\app\src\main\assets\www\" /E /Y /Q
 
 echo 6. Copying Android project files...
 xcopy "android\*" "android-temp\" /E /Y /Q
+
+echo 6.1. Copying AndroidManifest.xml...
+copy "android\app\src\main\AndroidManifest.xml" "android-temp\app\src\main\AndroidManifest.xml" >nul
+
+echo 6.2. Copying resource files from original Android project...
+xcopy "android\app\src\main\res\*" "android-temp\app\src\main\res\" /E /Y /Q
+
+
 if not exist "android-temp\gradle\wrapper" mkdir "android-temp\gradle\wrapper"
 copy "android\gradle\wrapper\*" "android-temp\gradle\wrapper\" >nul
 

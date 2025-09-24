@@ -22,6 +22,7 @@ components.d.ts
 
 # APK files
 *.apk
+*.aab
 
 # Android build files
 android/.gradle/
@@ -31,12 +32,24 @@ android/local.properties
 android/.idea/
 android/captures/
 android/keystore.properties
+android-temp/
+app/build/
+app/.gradle/
+app/local.properties
+app/Moomusic/build/
+app/Moomusic/local.properties
 
 # Gradle
 .gradle/
 gradle-app.setting
 !gradle-wrapper.jar
 !gradle-wrapper.properties
+
+# IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.idea/
 
 # OS generated files
 .DS_Store
@@ -49,7 +62,6 @@ Thumbs.db
 
 # Editor directories and files
 .hbuilderx
-.idea
 .vscode
 *.suo
 *.ntvs*
@@ -61,6 +73,7 @@ Thumbs.db
 *.tmp
 *.temp
 .cache/
+temp_aar/
 
 # Environment files
 .env
@@ -72,3 +85,49 @@ Thumbs.db
 # Debug files
 debug-network.html
 test-network.html
+
+# Keystore files (keep template but ignore actual keystores)
+*.keystore
+*.jks
+!keystore/*.keystore.template
+
+# Proguard
+proguard/
+
+# External native build
+.externalNativeBuild/
+.cxx/
+
+# Version control
+.svn/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# Test coverage
+coverage/
+*.lcov
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
