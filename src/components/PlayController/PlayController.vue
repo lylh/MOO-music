@@ -2,7 +2,7 @@
   <view>
     <view
       v-show="!hidden"
-      class="h-[110rpx] px-[30rpx] rounded-[60rpx] fixed bottom-[4%] left-[3%] z-[999] box-border flex justify-between items-center bg-black-1 mb-[var(--ios-bottom)]"
+      class="h-[110rpx] px-[30rpx] rounded-[60rpx] fixed bottom-[4%] left-[3%] z-[999] box-border flex justify-between items-center bg-gradient-to-r from-black-3 to-black-2 mb-[var(--ios-bottom)] border border-grey-3 shadow-2xl backdrop-blur-sm"
       :style="{ width: area + 'rpx'}"
     >
       <Countdown />
@@ -47,10 +47,10 @@
       </view>
     </view>
 
-    <view class="h-[110rpx] px-[30rpx] rounded-[60rpx] fixed bottom-[4%] right-[3%] z-[999] box-border flex justify-between items-center bg-black-1 mb-[var(--ios-bottom)]">
+    <view class="h-[110rpx] px-[30rpx] rounded-[60rpx] fixed bottom-[4%] right-[3%] z-[999] box-border flex justify-between items-center bg-gradient-to-r from-black-3 to-black-2 mb-[var(--ios-bottom)] border border-grey-3 shadow-2xl backdrop-blur-sm">
       <JIcon
         type="icon-menu"
-        class="text-white-1 text-[70rpx] font-bold mr-3"
+        class="text-white-1 text-[70rpx] font-bold mr-3 hover:text-primary transition-colors duration-200"
         @click="onOpenPopup"
       />
       <uni-popup
@@ -64,7 +64,7 @@
 
       <JIcon
         :type="iconType"
-        class="text-yellow-1 text-[70rpx]"
+        class="text-yellow-1 text-[70rpx] hover:scale-110 transition-transform duration-200"
         @click="!audioStore.associationSong && audioStore.setPlayMode()"
       />
     </view>

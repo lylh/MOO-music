@@ -20,7 +20,7 @@
         />
 
         <button
-          class="font-bold bg-yellow-1 text-black-1 rounded-full my-4"
+          class="font-bold bg-primary text-black-1 rounded-full my-4 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-yellow-400"
           :loading="isLoading"
           @tap.stop="toNetease"
         >

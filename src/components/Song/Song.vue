@@ -1,11 +1,11 @@
 <template>
   <view>
     <view
-      class="active:animate-back w-auto h-[140rpx] mb-5 flex justify-center items-center"
+      class="flex items-center h-[200rpx] mb-5 p-3 rounded-xl bg-gradient-to-r from-black-3 to-black-2 border border-grey-3 shadow-md hover:shadow-lg hover:scale-102 hover:border-yellow-400 transition-all duration-300 backdrop-blur-sm"
       :class="{'!opacity-30 pointer-events-none': !canPlay}"
       :hover-stay-time="100"
-      hover-class="bg-grey-1/10"
-      @tap="$emit('click')"
+      hover-class="bg-grey-3/20"
+      @click="$emit('click')"
     >
       <JImage
         class="mr-5"

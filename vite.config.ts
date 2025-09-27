@@ -55,9 +55,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://kele.160622.xyz:14000',
+        target: 'http://localhost:3000',
         changeOrigin: true,
-        secure: true,
+        secure: false,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }

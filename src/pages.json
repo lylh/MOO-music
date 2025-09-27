@@ -72,6 +72,13 @@
 			}
 		},
 		{
+			"path": "pages/index/settings/settings",
+			"style": {
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "🎵 设置"
+			}
+		},
+		{
 			"path": "sharedPages/playlist/playlist",
 			"style": {
 				"navigationStyle": "custom",
@@ -133,12 +140,12 @@
 		}
 	],
 	"globalStyle": {
-		"backgroundColor": "#1a191b",
-		"backgroundColorTop": "#1a191b",
-		"backgroundColorBottom": "#1a191b",
+		"backgroundColor": "#1e1e1e",
+		"backgroundColorTop": "#1e1e1e",
+		"backgroundColorBottom": "#1e1e1e",
 		"navigationBarTextStyle": "white",
 		"app-plus": {
-			"background": "#1a191b",
+			"background": "#1e1e1e",
 			"titleColor": "#fff",
 			"animationType": "slide-in-right",
 			"animationDuration": "200",

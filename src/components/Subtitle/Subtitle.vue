@@ -1,12 +1,12 @@
 <template>
   <view
-    class="my-[20rpx] py-[20rpx] text-[34rpx] font-bold text-white-1 flex justify-between items-center"
-    :hover-class="clickable ? 'bg-grey-1/10' : ''"
+    class="my-[20rpx] py-[20rpx] px-[16rpx] text-[34rpx] font-bold text-white-1 flex justify-between items-center bg-black-3 rounded-[12rpx] border border-grey-3 shadow-md"
+    :hover-class="clickable ? 'bg-grey-3/20' : ''"
     :hover-stay-time="50"
     @tap="onSubtitle"
   >
     <slot name="title">
-      <text class="title">
+      <text class="title text-white-1 font-semibold">
         {{ title }}
       </text>
     </slot>

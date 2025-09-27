@@ -20,7 +20,7 @@
           <template #title>
             <view class="flex items-center">
               <button
-                class="h-[64rpx] !leading-[64rpx] m-0 rounded-full bg-yellow-1 text-black-1"
+                class="h-[64rpx] !leading-[64rpx] m-0 rounded-full bg-primary text-black-1 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-yellow-400"
                 size="mini"
                 @tap="audioStore.onPlay(audioStore.mode === 'random' ? rangeRandom(0, songs.length) : 0, songs)"
               >

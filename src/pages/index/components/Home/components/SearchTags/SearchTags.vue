@@ -9,7 +9,7 @@
     v-for="tag in tags"
     :key="tag"
     size="mini"
-    class="font-bold bg-yellow-1 text-black-1 rounded-full mr-[20rpx] mb-[20rpx]"
+    class="font-bold bg-primary text-black-1 rounded-full mr-[20rpx] mb-[20rpx] shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-yellow-400"
     @tap="useNavigateTo(`/sharedPages/searchSongs/searchSongs?keyword=${tag}`)"
   >
     #{{ tag }}

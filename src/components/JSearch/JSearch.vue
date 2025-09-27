@@ -1,7 +1,7 @@
 <template>
   <view class="flex items-center mx-[28rpx] my-[20rpx]">
     <view
-      class="box-border h-[74rpx] flex-1 flex justify-center items-center px-2 py-[4rpx]"
+      class="box-border h-[74rpx] flex-1 flex justify-center items-center px-2 py-[4rpx] shadow-lg border border-grey-3 backdrop-blur-sm"
       :style="{borderRadius: radius, backgroundColor: bgColor }"
       @tap="$emit('click')"
     >

@@ -1,12 +1,12 @@
 <template>
   <uni-nav-bar
     v-bind="$attrs"
-    class="font-bold"
+    class="font-bold shadow-lg backdrop-blur-sm"
     :title="$attrs.title as string || '🎵 MOO'"
     :left-icon="$props.leftArrow ? 'back' : undefined"
-    background-color="#1a191b"
-    color="#fffeff"
-    :border="false"
+    background-color="#2a2a2a"
+    color="#ffffff"
+    :border="true"
     fixed
     status-bar
     @clickLeft="onClickLeft"

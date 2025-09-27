@@ -5,6 +5,7 @@ import { getSongURL } from '@/api/play'
 import toast from '@/utils/toast'
 import { shuffle, transHTTPS } from '@/utils/util'
 import { getSimiSongs } from '@/api/play'
+import useCache from '@/hooks/useCache'
 
 export interface SongInfo {
   song: Song
@@ -15,6 +16,9 @@ export const useAudioStore = defineStore('audio', () => {
   const userStore = useLazyData(() => useUserStore())
   //* 播放模式: loop => 循环播放, random => 随机播放
   const playMode: ('loop' | 'random')[] = ['loop', 'random']
+  
+  // 音质设置
+  const audioQuality = useCache('audioQuality', ref<'standard' | 'higher' | 'exhigh' | 'lossless' | 'hires' | 'jyeffect' | 'sky' | 'jymaster'>('standard'))
 
   const audio = markRaw(uni.getBackgroundAudioManager?.() || uni.createInnerAudioContext())
   const isLoading = ref(false) // * 是否缓冲中
@@ -70,7 +74,9 @@ export const useAudioStore = defineStore('audio', () => {
 
     try {
       isLoading.value = true
-      const { data: [urlInfo] } = await getSongURL(song.id, userStore.value.profile ? 'lossless' : 'standard')
+      // 根据用户设置的音质和登录状态选择音质
+      const quality = userStore.value.profile ? audioQuality.value : 'standard'
+      const { data: [urlInfo] } = await getSongURL(song.id, quality)
       console.log('🚀 ~ file: audio.ts:58 ~ setCurrentSong ~ urlInfo:', urlInfo)
 
       const oldSongInfo = currentSongInfo.value
@@ -176,6 +182,7 @@ export const useAudioStore = defineStore('audio', () => {
     duration,
     currentTime,
     mode,
+    audioQuality,
     playlist,
     songs,
     associationSong,
