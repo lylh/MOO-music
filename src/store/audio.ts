@@ -13,7 +13,7 @@ export interface SongInfo {
 }
 
 export const useAudioStore = defineStore('audio', () => {
-  const userStore = useLazyData(() => useUserStore())
+  const userStore = useUserStore()
   //* 播放模式: loop => 循环播放, random => 随机播放
   const playMode: ('loop' | 'random')[] = ['loop', 'random']
   
@@ -74,8 +74,8 @@ export const useAudioStore = defineStore('audio', () => {
 
     try {
       isLoading.value = true
-      // 根据用户设置的音质和登录状态选择音质
-      const quality = userStore.value.profile ? audioQuality.value : 'standard'
+      // 使用用户设置的音质，不再强制要求登录状态
+      const quality = audioQuality.value
       const { data: [urlInfo] } = await getSongURL(song.id, quality)
       console.log('🚀 ~ file: audio.ts:58 ~ setCurrentSong ~ urlInfo:', urlInfo)
 
@@ -88,7 +88,7 @@ export const useAudioStore = defineStore('audio', () => {
       if (!oldSongInfo || oldSongInfo.urlInfo.url) return setNextSong()
 
       // ! 连续两次请求 url 都为空直接报错退出（避免无限循环下一首）
-      userStore.value.profile ? toast.fail('播放地址失效,请尝试重新登录') : toast.fail('播放地址失效')
+      userStore.profile ? toast.fail('播放地址失效,请尝试重新登录') : toast.fail('播放地址失效')
       throw new Error('播放地址失效')
     } catch (error) {
       audio.pause()
